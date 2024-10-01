@@ -1,3 +1,2 @@
-strs="cab"
-key=sorted(strs)
-print(key)
+a="abc"
+print(a[0:2])
