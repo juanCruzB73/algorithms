@@ -28,47 +28,55 @@ invalid=[["1","2",".",".","3",".",".",".","."],
         [".",".",".","4","1","9",".",".","8"],
         [".",".",".",".","8",".",".","7","9"]]
 
-test_row=[["1","2",".",".","3",".",".",".","."]]
-test_row2=[["1","2",".","3","3",".",".",".","."]]
-test_column=[["1"],["2"],["."],["4"],["."],["6"],["."],["8"],["9"]]
-test_column2=[["1","3"],["3","3"],["2","4"],["4","8"],[".","9"],["6","5"],[".","7"],["8","2"],["9","6"]]
+board2=[
+    [".",".","4",".",".",".","6","3","."],
+    [".",".",".",".",".",".",".",".","."],
+    ["5",".",".",".",".",".",".","9","."],
+    [".",".",".","5","6",".",".",".","."],
+    ["4",".","3",".",".",".",".",".","1"],
+    [".",".",".","7",".",".",".",".","."],
+    [".",".",".","5",".",".",".",".","."],
+    [".",".",".",".",".",".",".",".","."],
+    [".",".",".",".",".",".",".",".","."]]
+
 def isValidSudoku(board: list[str]) -> bool:
-    #validate rows
-    #validate columns
-    #validate grids
-    isValid=True
-    digits=[1,2,3,4,5,6,7,8,9]
-
-    for row in board:
+    box_hash={}
+    for i in range(9):
         row_hash=set()
-        for element in row:
-            if(element in row_hash and element != "."):
-                isValid=False
-                return isValid
-            row_hash.add(element)
-    counter=1
-    for i in range(len(board[0])):
         column_hash=set()
-        for j in range(len(board)):
-            if(board[j][i] in column_hash and board[j][i] != "."):
-                isValid=False
-                return isValid
+        for j in range(9):
+            print(i,j, board[i][j],board[j][i])
+            print(row_hash)
+            print(column_hash)
+            print(box_hash)
+            '''if(board[i][j]=="." or board[j][i]=='.'):
+                continue'''
+            
+            if(board[i][j] in row_hash and board[i][j]!="."):
+                print("row repetida")
+                return False
+    
+            if(board[j][i] in column_hash and board[j][i]!='.'):
+                print("column repetida char: ",board[j][i])
+                return False
+            
+            position=[int(i/3),int(j/3)]
+            position=str(position)
+
+            if(position not in box_hash):
+                box_hash[position]=[]
+
+            if(board[i][j] in box_hash[position] and board[i][j]!="."):
+                print("box repetida")
+                return False
+            
+            row_hash.add(board[i][j])
             column_hash.add(board[j][i])
-    
-    square=int(len(digits)**(1/2))
-    
-    
-    for i in range(0,square,1):
-        sub_boxes=set()
-        for j in range(0,square,1):
-            if(board[i][j] in sub_boxes and board[i][j] != "."):
-                isValid=False
-                return isValid
-            sub_boxes.add(board[i][j])
-            print(sub_boxes)
-    return isValid
+            box_hash[position].append(board[i][j])
+
+    return True
+                
+        
 
 
-
-
-print(isValidSudoku(invalid))
+print(isValidSudoku(board2))
