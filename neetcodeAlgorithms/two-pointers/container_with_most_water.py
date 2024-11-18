@@ -16,14 +16,10 @@ def maxArea(heights: list[int]) -> int:
         else:
             height=heights[k]
         
-        print("heights ",(j+1),(k+1))
         width=(k+1)-(j+1)
-        print(" height ",height," width ",width, "area ",height*width)
 
         aux_max_area=height*width
         
-        print("aux", aux_max_area)
-        print("cmax", current_max_area)
         if(aux_max_area>current_max_area):
             current_max_area=aux_max_area
 
