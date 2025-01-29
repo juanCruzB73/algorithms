@@ -28,6 +28,32 @@ def threeSum(nums: list[int]) -> list[list[int]]:
             k-=1
     return resutl
 
+
+#solution 2
+class Solution:
+    def threeSum(self, nums: list[int]) -> list[list[int]]:
+        nums.sort()
+        result=[]
+        for p1 in range(len(nums)):
+            p2=p1+1
+            p3=len(nums)-1
+            if(p1>len(nums)-2):
+                return result
+            while p2<p3:
+                if(nums[p1]+nums[p2]+nums[p3]==0):
+                    if([nums[p1],nums[p2],nums[p3]] not in result):
+                        result.append([nums[p1],nums[p2],nums[p3]])
+                    p3-=1
+                    p2+=1
+                    continue
+                if(nums[p1]+nums[p2]+nums[p3]>0):
+                    p3-=1
+                if(nums[p1]+nums[p2]+nums[p3]<0):
+                    p2+=1
+
+
+
+
 nums = [-1,0,1,2,-1,-4]
 test=threeSum(nums)
 print(test)
